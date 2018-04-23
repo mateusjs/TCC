@@ -11,21 +11,6 @@ class Bagging:
         self.n = n
         self.column = column
 
-    def set_csv_path(self, path):
-        self.csvPath = path
-
-    def set_csv_name_final(self, csv):
-        self.csvNameFinal = csv
-
-    def setPercentage(self, percentage):
-        self.percentage = percentage
-
-    def setN(self, n):
-        self.n = n
-
-    def setColumn(self, column):
-         self.column = column
-
     def subset(self):
         if self.percentage > 1:
             self.percentage = self.percentage / 100
