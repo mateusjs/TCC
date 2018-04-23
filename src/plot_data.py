@@ -38,8 +38,9 @@ class Data:
             verts.sort()
             x_arr = []
             y_arr = []
-            for vert in verts: x_arr.append(vert[0])
-            y_arr.append(vert[1])
+            for vert in verts:
+                x_arr.append(vert[0])
+                y_arr.append(vert[1])
 
             fig = plt.figure()
             ax = fig.add_axes([0.1, 0.1, 0.8, 0.8])
