@@ -1,6 +1,7 @@
 import pandas as pd
 
 
+
 class Bagging:
 
     def __init__(self, path, csv_name_final, percentage, n, column):
