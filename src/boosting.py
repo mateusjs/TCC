@@ -1,6 +1,5 @@
 import pandas as pd
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import accuracy_score
 from pandas2arff import pandas2arff
 
 
@@ -12,6 +11,7 @@ class Boosting:
         self.percentage = percentage
         self.n = n
         self.column = column
+        self.tamanho = percentage
 
     def subset(self):
         data_frame = pd.read_csv(self.csvPath, sep=',')
@@ -28,8 +28,6 @@ class Boosting:
 
             x = df_sub.iloc[0:(row - 1), 1:n - 1]
             y = df_sub.iloc[0:(row - 1), n - 1]
-            print(x)
-            print(y)
 
             knn = KNeighborsClassifier(n_neighbors=3)
             knn.fit(x, y)
@@ -39,24 +37,23 @@ class Boosting:
                 if y[it] != result[it]:
                     data_frame = data_frame.append([df_sub.iloc[it, :]], ignore_index=True)
 
-                # if amostras == -1:
-                # amostras = row
                 self.percentage = (df_sub.shape[0] / data_frame.shape[0])
 
-            string = str(count)
-
-            # salva os subsets em .csv
-            df_sub.to_csv(
-                "C:\\Users\\Mateus\\PycharmProjects\\TCC\\subsets\\boosting\\" + self.csvNameFinal + string + '.csv',
-                sep=',', index=False)
+            subset = str(count)
+            value = str(self.tamanho)
             # salva os subsets em .arff
             pandas2arff(df_sub,
-                        "C:\\Users\\Mateus\\PycharmProjects\\TCC\\arffSubSets\\boosting\\" + self.csvNameFinal + string + '.arff',
-                        cleanstringdata=False)
-            # salva os arquivo original após as novas bases em .csv
-        data_frame.to_csv("C:\\Users\\Mateus\\PycharmProjects\\TCC\\newBases\\boosting\\" + self.csvNameFinal + '.csv',
-                          sep=',', index=False)
+                        "C:\\Users\\Mateus\\PycharmProjects\\TCC\\subsets\\boosting\\" + self.csvNameFinal + subset +
+                        value + '.arff', cleanstringdata=False)
+
+        # salva os subsets em .csv
+        # df_sub.to_csv(
+        #     "C:\\Users\\Mateus\\PycharmProjects\\TCC\\subsets\\boosting\\" + self.csvNameFinal + string + '.csv',
+        #     sep=',', index=False)
+        # salva os arquivo original após as novas bases em .csv
+        # data_frame.to_csv("C:\\Users\\Mateus\\PycharmProjects\\TCC\\newBases\\boosting\\" + self.csvNameFinal + '.csv',
+        #                   sep=',', index=False)
         # salva os arquivo original após os erros em .arff
-        pandas2arff(data_frame,
-                    "C:\\Users\\Mateus\\PycharmProjects\\TCC\\arffNewBases\\boosting\\" + self.csvNameFinal + '.arff',
-                    cleanstringdata=False)
+        # pandas2arff(data_frame,
+        #             "C:\\Users\\Mateus\\PycharmProjects\\TCC\\arffNewBases\\boosting\\" + self.csvNameFinal + '.arff',
+        #             cleanstringdata=False)

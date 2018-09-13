@@ -5,24 +5,33 @@ from dcol import Dcol
 
 
 def main():
-    x = Bagging("C:\\Users\\Mateus\\PycharmProjects\\TCC\\classifiers\\Monk.csv", 'MonkSubSet', 10, 1, 'Class')
-    x.subset()
-    y = Boosting("C:\\Users\\Mateus\\PycharmProjects\\TCC\\classifiers\\Monk.csv", 'MonkSubSet', 10, 50, 'Class')
-    y.subset()
+    percentages = [10, 33, 50, 66]
+    name = "C:\\Users\\Mateus\\PycharmProjects\\TCC\\classifiers\\Banana.csv"
+    name = name.split("\\")
+    name = name[name.__len__()-1]
+    name = name.split('.')[0]+"SubSet"
 
-    # file_object = open("C:\\Users\\Mateus\\PycharmProjects\\TCC\\subsets\\MonkSubSet.bat", "w")
-    #
-    # for count in range(0, 100):
-    #     string = str(count)
-    #     file_object.write("csv2arff MonkSubSet" + string + ".csv MonkSubSet" + string + ".arff\n")
-    #
-    # file_object.close()
 
-    # z = Dcol()
-    # z.DcolI()
+    for percentage in percentages:
 
-    k = metrica_d1("C:\\Users\\Mateus\\PycharmProjects\\TCC\\classifiers\\Banana.csv", 'MonkSubSet', 10, 1, 'Class')
-    k.metrica()
+        x = Bagging("C:\\Users\\Mateus\\PycharmProjects\\TCC\\classifiers\\Banana.csv", name, percentage, 100, 'Class')
+        x.subset()
+        y = Boosting("C:\\Users\\Mateus\\PycharmProjects\\TCC\\classifiers\\Banana.csv", name, percentage, 100, 'Class')
+        y.subset()
+
+        # file_object = open("C:\\Users\\Mateus\\PycharmProjects\\TCC\\subsets\\MonkSubSet.bat", "w")
+        #
+        # for count in range(0, 100):
+        #     string = str(count)
+        #     file_object.write("csv2arff MonkSubSet" + string + ".csv ", name + string + ".arff\n")
+        #
+        # file_object.close()
+
+        # z = Dcol()
+        # z.DcolI()
+
+        k = metrica_d1("C:\\Users\\Mateus\\PycharmProjects\\TCC\\classifiers\\Banana.csv", name, percentage, 1, 'Class')
+        k.metrica()
 
 
 if __name__ == '__main__':

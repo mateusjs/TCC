@@ -64,6 +64,10 @@ class metrica_d1:
             volumes.append(np.prod([max - min for min, max in zip(instancia.min(), instancia.max())]))
         d2 = np.sum(volumes) / data_frame.shape[0]
 
+        quantidade = data_frame['Class'].nunique()
+
+
+
         sobreposicao = 0
         for index, y in enumerate(result):
             vizinhos = data_frame.iloc[y, -1]
