@@ -1,7 +1,6 @@
 import pandas as pd
-import numpy as np
 from pandas2arff import pandas2arff
-
+from dcol import Dcol
 
 class Bagging:
 
@@ -34,3 +33,5 @@ class Bagging:
             pandas2arff(df_sub,
                         "C:\\Users\\Mateus\\PycharmProjects\\TCC\\subsets\\bagging\\" + self.csvNameFinal + subset +
                         value + '.arff', cleanstringdata=False)
+            Dcol.DcolI("C:\\Users\\Mateus\\PycharmProjects\\TCC\\subsets\\bagging\\", self.csvNameFinal + subset + value
+                       + '.arff', self.csvNameFinal + subset + value)

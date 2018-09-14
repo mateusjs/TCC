@@ -1,6 +1,7 @@
 import pandas as pd
 from sklearn.neighbors import KNeighborsClassifier
 from pandas2arff import pandas2arff
+from dcol import Dcol
 
 
 class Boosting:
@@ -45,6 +46,8 @@ class Boosting:
             pandas2arff(df_sub,
                         "C:\\Users\\Mateus\\PycharmProjects\\TCC\\subsets\\boosting\\" + self.csvNameFinal + subset +
                         value + '.arff', cleanstringdata=False)
+            Dcol.DcolI("C:\\Users\\Mateus\\PycharmProjects\\TCC\\subsets\\boosting\\", self.csvNameFinal + subset +
+                       value + '.arff', self.csvNameFinal + subset + value)
 
         # salva os subsets em .csv
         # df_sub.to_csv(

@@ -49,8 +49,11 @@ class metrica_d1:
             min[index] = (min[index] - norma_min) / (norma_max - norma_min)
 
             val = max[index] - min[index]
-            log = math.log(norma_n / val, 2)
-            val2.append(log)
+            print(val)
+            # log = math.log(norma_n / val, 5)
+            # print("log:", log)
+            # val2.append(log)
+            val2.append(norma_n/ val)
         auxiliar = 1
         for x in val2:
             auxiliar *= x
@@ -63,10 +66,6 @@ class metrica_d1:
             instancia = data_frame.iloc[x, 1:n - 1]
             volumes.append(np.prod([max - min for min, max in zip(instancia.min(), instancia.max())]))
         d2 = np.sum(volumes) / data_frame.shape[0]
-
-        quantidade = data_frame['Class'].nunique()
-
-
 
         sobreposicao = 0
         for index, y in enumerate(result):

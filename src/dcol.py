@@ -2,12 +2,13 @@ import subprocess
 import sys
 
 
-class Dcol(object):
+class Dcol:
 
-    def DcolI(self):
+    def DcolI(caminho, arquivo, nome_final):
         if sys.platform == "linux":
             subprocess.call(["ls", "-l"])
         elif sys.platform == "darwin":
             subprocess.call("ls")
         elif sys.platform == "win32":
-            subprocess.call("DCOL.exe -i nome.arff -o cmpnome.txt -A -d", shell=True)
+            print(caminho + " -i " + arquivo + " -o " + nome_final + ".txt -A -d")
+            subprocess.call("DCOL.exe -i " + arquivo + " -o " + nome_final + ".txt -A -d", shell=True, cwd=caminho)

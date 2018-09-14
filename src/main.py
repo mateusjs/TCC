@@ -2,36 +2,42 @@ from bagging import Bagging
 from boosting import Boosting
 from metricas import metrica_d1
 from dcol import Dcol
+import sys
+import os
+import threading
+
+
+def gera_subset(percentage, path, name):
+    print('Iniciando ', name, 'com porcentagem de ', percentage)
+    x = Bagging(path, name, percentage, 100,
+                'Class')
+    x.subset()
+    y = Boosting(path, name, percentage, 100,
+                 'Class')
+    y.subset()
+
+    k = metrica_d1(path, name, percentage, 1,
+                   'Class')
+    k.metrica()
 
 
 def main():
-    percentages = [10, 33, 50, 66]
-    name = "C:\\Users\\Mateus\\PycharmProjects\\TCC\\classifiers\\Banana.csv"
-    name = name.split("\\")
-    name = name[name.__len__()-1]
-    name = name.split('.')[0]+"SubSet"
+    percentages = [10]
+    threads = []
 
+    # for file in os.listdir(sys.argv[1]):
+    # path = sys.argv[1] + "\\" + file
+    path = "C:\\Users\\Mateus\\PycharmProjects\\TCC\\classifiers\\Banana.csv"
+    # name = file.split('.')[0] + "SubSet"
+    name = "SonarSubset"
+    print(name)
 
-    for percentage in percentages:
+    for p in percentages:
+        threads.append(threading.Thread(target=gera_subset, args=(p, path, name)))
+        threads[-1].start()
 
-        x = Bagging("C:\\Users\\Mateus\\PycharmProjects\\TCC\\classifiers\\Banana.csv", name, percentage, 100, 'Class')
-        x.subset()
-        y = Boosting("C:\\Users\\Mateus\\PycharmProjects\\TCC\\classifiers\\Banana.csv", name, percentage, 100, 'Class')
-        y.subset()
-
-        # file_object = open("C:\\Users\\Mateus\\PycharmProjects\\TCC\\subsets\\MonkSubSet.bat", "w")
-        #
-        # for count in range(0, 100):
-        #     string = str(count)
-        #     file_object.write("csv2arff MonkSubSet" + string + ".csv ", name + string + ".arff\n")
-        #
-        # file_object.close()
-
-        # z = Dcol()
-        # z.DcolI()
-
-        k = metrica_d1("C:\\Users\\Mateus\\PycharmProjects\\TCC\\classifiers\\Banana.csv", name, percentage, 1, 'Class')
-        k.metrica()
+    for t in threads:
+        t.join()
 
 
 if __name__ == '__main__':
