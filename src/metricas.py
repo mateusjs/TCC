@@ -49,7 +49,6 @@ class metrica_d1:
             min[index] = (min[index] - norma_min) / (norma_max - norma_min)
 
             val = max[index] - min[index]
-            print(val)
             # log = math.log(norma_n / val, 5)
             # print("log:", log)
             # val2.append(log)

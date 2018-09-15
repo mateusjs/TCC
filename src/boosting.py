@@ -45,9 +45,9 @@ class Boosting:
             # salva os subsets em .arff
             pandas2arff(df_sub,
                         "C:\\Users\\Mateus\\PycharmProjects\\TCC\\subsets\\boosting\\" + self.csvNameFinal + subset +
-                        value + '.arff', cleanstringdata=False)
+                       "_" + value + '.arff', cleanstringdata=False)
             Dcol.DcolI("C:\\Users\\Mateus\\PycharmProjects\\TCC\\subsets\\boosting\\", self.csvNameFinal + subset +
-                       value + '.arff', self.csvNameFinal + subset + value)
+                       "_" + value + '.arff', self.csvNameFinal + subset + "_" + value)
 
         # salva os subsets em .csv
         # df_sub.to_csv(
