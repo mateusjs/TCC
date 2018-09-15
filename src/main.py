@@ -1,7 +1,5 @@
-from bagging import Bagging
-from boosting import Boosting
-from metricas import metrica_d1
-from dcol import Dcol
+from src.bagging import Bagging
+from src.boosting import Boosting
 import sys
 import os
 import threading
@@ -16,10 +14,6 @@ def gera_subset(percentage, path, name):
     # y = Boosting(path, name, percentage, 100,
     #              'Class')
     # y.subset()
-
-    k = metrica_d1(path, name, percentage, 1,
-                   'Class')
-    k.metrica()
 
 
 def main():

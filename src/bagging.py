@@ -1,6 +1,7 @@
 import pandas as pd
-from pandas2arff import pandas2arff
-from dcol import Dcol
+from src.pandas2arff import pandas2arff
+from src.dcol import Dcol
+from src.metricas import metrica
 
 
 class Bagging:
@@ -25,14 +26,13 @@ class Bagging:
             #  mas com o 2
             df_sub = data_frame.groupby(self.column, as_index=False).apply(
                 lambda x: x.sample(frac=self.percentage, replace=True)).reset_index(drop=True)
-            new_path = self.csvNameFinal
             subset = str(count)
             value = str(self.tamanho)
-            # print("Gerando SubSets")
-            # df_sub.to_csv("C:\\Users\\Mateus\\PycharmProjects\\TCC\\subsets\\" + self.csvNameFinal + string + '.csv',
-            #               sep=',')
+
             pandas2arff(df_sub,
                         "C:\\Users\\Mateus\\PycharmProjects\\TCC\\subsets\\bagging\\" + self.csvNameFinal + subset +
                         "_" + value + '.arff', cleanstringdata=False)
             Dcol.DcolI("C:\\Users\\Mateus\\PycharmProjects\\TCC\\subsets\\bagging\\", self.csvNameFinal + subset +
                        "_" + value + '.arff', self.csvNameFinal + subset + "_" + value)
+
+            #metrica.metrica(self.csvPath, "C:\\Users\\Mateus\\PycharmProjects\\TCC\\subsets\\bagging\\" + self.csvNameFinal + subset + "_" + value, self.csvNameFinal + subset + "_" + value)

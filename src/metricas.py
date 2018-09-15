@@ -1,21 +1,13 @@
+import numpy as np
 import pandas as pd
 from sklearn.neighbors import KNeighborsClassifier
-import numpy as np
-import math as math
-import decimal as decimal
 
 
-class metrica_d1:
+class metrica:
 
-    def __init__(self, path, csv_name_final, percentage, n, column):
-        self.csvPath = path
-        self.csvNameFinal = csv_name_final
-        self.percentage = percentage
-        self.n = n
-        self.column = column
-
-    def metrica(self):
-        data_frame = pd.read_csv(self.csvPath)
+    def metrica(self, path, nome):
+        print(path + ".txt")
+        data_frame = pd.read_csv(path + ".txt")
 
         n = data_frame.shape[1]
         row = data_frame.shape[0]
@@ -52,7 +44,7 @@ class metrica_d1:
             # log = math.log(norma_n / val, 5)
             # print("log:", log)
             # val2.append(log)
-            val2.append(norma_n/ val)
+            val2.append(norma_n / val)
         auxiliar = 1
         for x in val2:
             auxiliar *= x
@@ -86,5 +78,7 @@ class metrica_d1:
 
         # print(sobreposicao)
         d3 = sobreposicao / data_frame.__len__()
-
+        file = open(path + "_metricas", "w")
+        file.write("%f, %f", d2, d3)
+        file.close()
         print("D1: ", d1, "D2: ", d2, " D3: ", d3)

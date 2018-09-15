@@ -1,7 +1,8 @@
 import pandas as pd
 from sklearn.neighbors import KNeighborsClassifier
-from pandas2arff import pandas2arff
-from dcol import Dcol
+from src.pandas2arff import pandas2arff
+from src.dcol import Dcol
+from src.metricas import metrica
 
 
 class Boosting:
