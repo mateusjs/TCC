@@ -11,4 +11,5 @@ class Dcol:
             subprocess.call("ls")
         elif sys.platform == "win32":
             print(caminho + " -i " + arquivo + " -o " + nome_final + ".txt -A -d")
-            subprocess.call("DCOL.exe -i " + arquivo + " -o " + nome_final + ".txt -A -d", shell=True, cwd=caminho)
+            subprocess.call("DCOL.exe -i " + arquivo + " -o " + nome_final + " -F 1 -F 2 -F 3 -F 4 -L 1 -L 2 -L 3 -N 1 "
+                                                                             "-N 2 -N 3 -N 4 -T 1 -d", shell=True, cwd=caminho)

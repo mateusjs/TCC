@@ -1,13 +1,14 @@
 import numpy as np
 import pandas as pd
 from sklearn.neighbors import KNeighborsClassifier
+import math
 
 
 class metrica:
 
-    def metrica(self, path, nome):
-        print(path + ".txt")
-        data_frame = pd.read_csv(path + ".txt")
+    def metrica(path, nome):
+        print(type(path))
+        data_frame = path
 
         n = data_frame.shape[1]
         row = data_frame.shape[0]
@@ -78,7 +79,10 @@ class metrica:
 
         # print(sobreposicao)
         d3 = sobreposicao / data_frame.__len__()
-        file = open(path + "_metricas", "w")
-        file.write("%f, %f", d2, d3)
+        d2 = str(round(d2, 3))
+        d3 = str(round(d3, 3))
+
+        file = open(nome + "metricas", "w")
+        file.write(d2 + " " + d3)
         file.close()
         print("D1: ", d1, "D2: ", d2, " D3: ", d3)

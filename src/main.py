@@ -7,8 +7,7 @@ import threading
 
 def gera_subset(percentage, path, name):
     print('Iniciando ', name, 'com porcentagem de ', percentage)
-    x = Bagging(path, name, percentage, 100,
-                'Class')
+    x = Bagging(path, name, percentage, 100, 'Class')
     x.subset()
 
     # y = Boosting(path, name, percentage, 100,
@@ -17,7 +16,7 @@ def gera_subset(percentage, path, name):
 
 
 def main():
-    percentages = [10, 33, 50, 60]
+    percentages = [10, 33, 50, 66]
     threads = []
 
     for file in os.listdir(sys.argv[1]):
