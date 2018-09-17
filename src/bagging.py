@@ -35,4 +35,4 @@ class Bagging:
             Dcol.DcolI("C:\\Users\\Mateus\\PycharmProjects\\TCC\\subsets\\bagging\\", self.csvNameFinal + subset +
                        "_" + value + '.arff', self.csvNameFinal + subset + "_" + value)
 
-            metrica.metrica(df_sub, "C:\\Users\\Mateus\\PycharmProjects\\TCC\\subsets\\bagging\\" + self.csvNameFinal + subset + "_" + value)
+            metrica.metrica(df_sub, "C:\\Users\\Mateus\\PycharmProjects\\TCC\\subsets\\bagging\\" + self.csvNameFinal + subset + "_" + value + ".txt")

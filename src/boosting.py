@@ -49,6 +49,8 @@ class Boosting:
                        "_" + value + '.arff', cleanstringdata=False)
             Dcol.DcolI("C:\\Users\\Mateus\\PycharmProjects\\TCC\\subsets\\boosting\\", self.csvNameFinal + subset +
                        "_" + value + '.arff', self.csvNameFinal + subset + "_" + value)
+            metrica.metrica(df_sub,
+                            "C:\\Users\\Mateus\\PycharmProjects\\TCC\\subsets\\boosting\\" + self.csvNameFinal + subset + "_" + value + ".txt")
 
         # salva os subsets em .csv
         # df_sub.to_csv(

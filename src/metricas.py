@@ -7,7 +7,7 @@ import math
 class metrica:
 
     def metrica(path, nome):
-        print(type(path))
+
         data_frame = path
 
         n = data_frame.shape[1]
@@ -79,10 +79,15 @@ class metrica:
 
         # print(sobreposicao)
         d3 = sobreposicao / data_frame.__len__()
-        d2 = str(round(d2, 3))
-        d3 = str(round(d3, 3))
 
-        file = open(nome + "metricas", "w")
-        file.write(d2 + " " + d3)
-        file.close()
-        print("D1: ", d1, "D2: ", d2, " D3: ", d3)
+        df_sub = pd.read_fwf(nome, header=None)
+        linhas = df_sub.shape[0]
+
+        teste = df_sub.sum(axis=0, numeric_only=True)/linhas
+        teste.set_value(13, d2)
+        teste.set_value(14, d3)
+
+        df = teste.to_frame()
+        df.to_csv(nome, index=False, sep=' ', header=None, float_format='%.3f')
+
+
