@@ -10,11 +10,17 @@ class metrica:
 
         data_frame = path
 
-        n = data_frame.shape[1]
+        df_aux = data_frame.groupby(['Class']).size().to_frame()
+        df_aux = df_aux * 1.0
+
+        column = data_frame.shape[1]
         row = data_frame.shape[0]
 
-        x = data_frame.iloc[0:(row - 1), 1:n - 1]
-        y = data_frame.iloc[0:(row - 1), n - 1]
+        for coluna in df_aux:
+            df_aux[coluna] = df_aux[coluna] / row
+
+        x = data_frame.iloc[0:(row - 1), 1:column - 1]
+        y = data_frame.iloc[0:(row - 1), column - 1]
 
         knn = KNeighborsClassifier(n_neighbors=8)
         knn.fit(x, y)
@@ -25,7 +31,7 @@ class metrica:
             aux.append(np.delete(lista, 0))
 
         result = aux
-        data_frame2 = data_frame.iloc[:, 0:n - 1]
+        data_frame2 = data_frame.iloc[:, 0:column - 1]
 
         # d1 = data_frame.shape[0] / np.prod([max - min for min, max in zip(data_frame2.min(), data_frame2.max())])
 
@@ -55,7 +61,7 @@ class metrica:
         volumes = []
         for x in result:
             # print(x)
-            instancia = data_frame.iloc[x, 1:n - 1]
+            instancia = data_frame.iloc[x, 1:column - 1]
             volumes.append(np.prod([max - min for min, max in zip(instancia.min(), instancia.max())]))
         d2 = np.sum(volumes) / data_frame.shape[0]
 
@@ -81,13 +87,13 @@ class metrica:
         d3 = sobreposicao / data_frame.__len__()
 
         df_sub = pd.read_fwf(nome, header=None)
-        linhas = df_sub.shape[0]
+        df_sub = df_sub.iloc[:, 1:-1]
 
-        teste = df_sub.sum(axis=0, numeric_only=True)/linhas
-        teste.set_value(13, d2)
-        teste.set_value(14, d3)
+        if df_aux.shape[0] > 2:
+            df_sub = df_sub.mul(pd.Series(df_aux.iloc[:, 0].values), axis=0)
+
+        teste = df_sub.sum(axis=0, numeric_only=True)
+        teste = teste.append(pd.Series([d2, d3]))
 
         df = teste.to_frame()
         df.to_csv(nome, index=False, sep=' ', header=None, float_format='%.3f')
-
-

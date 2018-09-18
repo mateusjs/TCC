@@ -1,5 +1,6 @@
 from src.bagging import Bagging
 from src.boosting import Boosting
+from src.metricas import metrica
 import sys
 import os
 import threading
@@ -10,13 +11,13 @@ def gera_subset(percentage, path, name):
     x = Bagging(path, name, percentage, 100, 'Class')
     x.subset()
 
-    # y = Boosting(path, name, percentage, 100,
-    #              'Class')
-    # y.subset()
+    y = Boosting(path, name, percentage, 100, 'Class')
+    #y.subset()
 
 
 def main():
-    percentages = [10, 33, 50, 66]
+    #percentages = [10, 33, 50, 66]
+    percentages = [10]
     threads = []
 
     for file in os.listdir(sys.argv[1]):
