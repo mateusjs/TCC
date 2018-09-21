@@ -29,10 +29,12 @@ class Bagging:
             subset = str(count)
             value = str(self.tamanho)
 
+            # df_sub.to_csv( "C:\\Users\\Mateus\\PycharmProjects\\TCC\\subsets\\bagging\\" + self.csvNameFinal + subset + "_" + value, sep=',')
             pandas2arff(df_sub,
                         "C:\\Users\\Mateus\\PycharmProjects\\TCC\\subsets\\bagging\\" + self.csvNameFinal + subset +
                         "_" + value + '.arff', cleanstringdata=False)
             Dcol.DcolI("C:\\Users\\Mateus\\PycharmProjects\\TCC\\subsets\\bagging\\", self.csvNameFinal + subset +
                        "_" + value + '.arff', self.csvNameFinal + subset + "_" + value)
 
-            metrica.metrica(df_sub, "C:\\Users\\Mateus\\PycharmProjects\\TCC\\subsets\\bagging\\" + self.csvNameFinal + subset + "_" + value + ".txt")
+            metrica.metrica(df_sub, "C:\\Users\\Mateus\\PycharmProjects\\TCC\\subsets\\bagging\\" + self.csvNameFinal +
+                            subset + "_" + value + ".txt")

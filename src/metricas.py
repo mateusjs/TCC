@@ -35,28 +35,28 @@ class metrica:
 
         # d1 = data_frame.shape[0] / np.prod([max - min for min, max in zip(data_frame2.min(), data_frame2.max())])
 
-        min, max = data_frame2.min(), data_frame2.max()
-        min = min.astype('float')
-        max = max.astype('float')
+        # min, max = data_frame2.min(), data_frame2.max()
+        # min = min.astype('float')
+        # max = max.astype('float')
+        #
+        # val2 = []
+        # norma_min, norma_max = float(min.min()), float(max.max())
+        # norma_n = (data_frame.shape[0] - norma_min) / (norma_max - norma_min)
 
-        val2 = []
-        norma_min, norma_max = float(min.min()), float(max.max())
-        norma_n = (data_frame.shape[0] - norma_min) / (norma_max - norma_min)
-
-        for index in range(len(min)):
-            max[index] = (max[index] - norma_min) / (norma_max - norma_min)
-            min[index] = (min[index] - norma_min) / (norma_max - norma_min)
-
-            val = max[index] - min[index]
-            # log = math.log(norma_n / val, 5)
-            # print("log:", log)
-            # val2.append(log)
-            val2.append(norma_n / val)
-        auxiliar = 1
-        for x in val2:
-            auxiliar *= x
-
-        d1 = auxiliar
+        # for index in range(len(min)):
+        #     max[index] = (max[index] - norma_min) / (norma_max - norma_min)
+        #     min[index] = (min[index] - norma_min) / (norma_max - norma_min)
+        #
+        #     val = max[index] - min[index]
+        #     # log = math.log(norma_n / val, 5)
+        #     # print("log:", log)
+        #     # val2.append(log)
+        #     val2.append(norma_n / val)
+        # auxiliar = 1
+        # for x in val2:
+        #     auxiliar *= x
+        #
+        # d1 = auxiliar
 
         volumes = []
         for x in result:
@@ -86,8 +86,9 @@ class metrica:
         # print(sobreposicao)
         d3 = sobreposicao / data_frame.__len__()
 
-        df_sub = pd.read_fwf(nome, header=None)
-        df_sub = df_sub.iloc[:, 1:-1]
+        df_sub = pd.read_fwf(nome, header=None, sep=' ')
+
+        df_sub = df_sub.iloc[:, 1:df_sub.shape[1]]
 
         if df_aux.shape[0] > 2:
             df_sub = df_sub.mul(pd.Series(df_aux.iloc[:, 0].values), axis=0)

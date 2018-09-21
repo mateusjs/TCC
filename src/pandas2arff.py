@@ -7,11 +7,10 @@ def pandas2arff(df, filename, wekaname="pandasdata", cleanstringdata=True, clean
     df: dataframe in pandas format
     filename: the filename you want the weka compatible file to be in
     wekaname: the name you want to give to the weka dataset (this will be visible to you when you open it in Weka)
-    cleanstringdata: clean up data which may have spaces and replace with "_", special characters etc which seem to annoy Weka.
-                     To suppress this, set this to False
+    cleanstringdata: clean up data which may have spaces and replace with "_", special characters etc which seem to
+    annoy Weka. To suppress this, set this to False
     cleannan: replaces all nan values with "?" which is Weka's standard for missing values.
-              To suppress this, set this to False
-    """
+              To suppress this, set this to False """
     import re
 
     def cleanstring(s):
@@ -27,9 +26,9 @@ def pandas2arff(df, filename, wekaname="pandasdata", cleanstringdata=True, clean
         # this makes sure that certain numerical columns with missing values don't get stuck with "object" type
 
     f = open(filename, "w")
-    arffList = []
-    arffList.append("@relation " + wekaname + "\n")
-    # look at each column's dtype. If it's an "object", make it "nominal" under Weka for now (can be changed in source for dates.. etc)
+    arffList = ["@relation " + wekaname + "\n"]
+    # look at each column's dtype. If it's an "object", make it "nominal" under Weka for now (can be changed in
+    # source for dates.. etc)
     for i in range(df.shape[1]):
         if dfcopy.dtypes[i] == 'O' or (df.columns[i] in ["Class", "CLASS", "class"]):
             if cleannan != False:
@@ -49,10 +48,10 @@ def pandas2arff(df, filename, wekaname="pandasdata", cleanstringdata=True, clean
     for i in range(dfcopy.shape[0]):  # instances
         _instanceString = ""
         for j in range(df.shape[1]):  # features
-            if dfcopy.dtypes[j] == 'O':
-                _instanceString += "\"" + str(dfcopy.iloc[i, j]) + "\""
-            else:
-                _instanceString += str(dfcopy.iloc[i, j])
+            # if dfcopy.dtypes[j] == 'O':
+            #     _instanceString += "\"" + str(dfcopy.iloc[i, j]) + "\""
+            # else:
+            _instanceString += str(dfcopy.iloc[i, j])
             if j != dfcopy.shape[1] - 1:  # if it's not the last feature, add a comma
                 _instanceString += ","
         _instanceString += "\n"
