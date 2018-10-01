@@ -16,50 +16,40 @@ class Boosting:
         self.tamanho = percentage
 
     def subset(self):
-        data_frame = pd.read_csv(self.csvPath, sep=',')
+        for index in range(1, 20):
+            data_frame = pd.read_csv(self.csvPath, sep=',')
 
-        if self.percentage > 1:
-            self.percentage = self.percentage / 100
+            if self.percentage > 1:
+                self.percentage = self.percentage / 100
 
-        for count in range(self.n):
-            df_sub = data_frame.groupby(self.column, as_index=False).apply(
-                lambda x: x.sample(frac=self.percentage, replace=True)).reset_index(drop=True)
+            for count in range(self.n):
+                df_sub = data_frame.groupby(self.column, as_index=False).apply(
+                    lambda x: x.sample(frac=self.percentage, replace=True)).reset_index(drop=True)
 
-            n = df_sub.shape[1]
-            row = df_sub.shape[0]
+                n = df_sub.shape[1]
+                row = df_sub.shape[0]
 
-            x = df_sub.iloc[0:(row - 1), 1:n - 1]
-            y = df_sub.iloc[0:(row - 1), n - 1]
+                x = df_sub.iloc[0:(row - 1), 1:n - 1]
+                y = df_sub.iloc[0:(row - 1), n - 1]
 
-            knn = KNeighborsClassifier(n_neighbors=3)
-            knn.fit(x, y)
-            result = knn.predict(x)
+                knn = KNeighborsClassifier(n_neighbors=3)
+                knn.fit(x, y)
+                result = knn.predict(x)
 
-            for it in range(0, row - 1):
-                if y[it] != result[it]:
-                    data_frame = data_frame.append([df_sub.iloc[it, :]], ignore_index=True)
+                for it in range(0, row - 1):
+                    if y[it] != result[it]:
+                        data_frame = data_frame.append([df_sub.iloc[it, :]], ignore_index=True)
 
-                self.percentage = (df_sub.shape[0] / data_frame.shape[0])
+                    self.percentage = (df_sub.shape[0] / data_frame.shape[0])
 
-            subset = str(count)
-            value = str(self.tamanho)
-            # salva os subsets em .arff
-            pandas2arff(df_sub,
-                        "C:\\Users\\Mateus\\PycharmProjects\\TCC\\subsets\\boosting\\" + self.csvNameFinal + subset +
-                       "_" + value + '.arff', cleanstringdata=False)
-            Dcol.DcolI("C:\\Users\\Mateus\\PycharmProjects\\TCC\\subsets\\boosting\\", self.csvNameFinal + subset +
-                       "_" + value + '.arff', self.csvNameFinal + subset + "_" + value)
-            metrica.metrica(df_sub,
-                            "C:\\Users\\Mateus\\PycharmProjects\\TCC\\subsets\\boosting\\" + self.csvNameFinal + subset + "_" + value + ".txt")
-
-        # salva os subsets em .csv
-        # df_sub.to_csv(
-        #     "C:\\Users\\Mateus\\PycharmProjects\\TCC\\subsets\\boosting\\" + self.csvNameFinal + string + '.csv',
-        #     sep=',', index=False)
-        # salva os arquivo original após as novas bases em .csv
-        # data_frame.to_csv("C:\\Users\\Mateus\\PycharmProjects\\TCC\\newBases\\boosting\\" + self.csvNameFinal + '.csv',
-        #                   sep=',', index=False)
-        # salva os arquivo original após os erros em .arff
-        # pandas2arff(data_frame,
-        #             "C:\\Users\\Mateus\\PycharmProjects\\TCC\\arffNewBases\\boosting\\" + self.csvNameFinal + '.arff',
-        #             cleanstringdata=False)
+                subset = str(count)
+                value = str(self.tamanho)
+                caminho = str(index)
+                # salva os subsets em .arff
+                pandas2arff(df_sub,
+                            "C:\\Users\\Mateus\\Documents\\TCC\\"+caminho+"\\boosting\\" + self.csvNameFinal + subset +
+                           "_" + value + '.arff', cleanstringdata=False)
+                Dcol.DcolI("C:\\Users\\Mateus\\Documents\\TCC\\"+caminho+"\\boosting\\", self.csvNameFinal + subset +
+                           "_" + value + '.arff', self.csvNameFinal + subset + "_" + value)
+                metrica.metrica(df_sub,
+                                "C:\\Users\\Mateus\\Documents\\TCC\\"+caminho+"\\boosting\\" + self.csvNameFinal + subset + "_" + value + ".txt")

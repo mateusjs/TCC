@@ -94,7 +94,7 @@ class metrica:
             df_sub = df_sub.mul(pd.Series(df_aux.iloc[:, 0].values), axis=0)
 
         teste = df_sub.sum(axis=0, numeric_only=True)
-        teste = teste.append(pd.Series([d2, d3]))
+        teste = teste.append(pd.Series([d3]))
 
         df = teste.to_frame()
         df.to_csv(nome, index=False, sep=' ', header=None, float_format='%.3f')
