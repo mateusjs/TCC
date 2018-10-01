@@ -1,18 +1,19 @@
+import os
+import sys
+import threading
+
 from src.bagging import Bagging
 from src.boosting import Boosting
-from src.metricas import metrica
-import sys
-import os
-import threading
 
 
 def gera_subset(percentage, path, name):
-    print('Iniciando ', name, ' com porcentagem de ', percentage)
-    x = Bagging(path, name, percentage, 100, 'Class')
-    x.subset()
+    for index in range(1, 21):
+        print('Iniciando ', name, ' com porcentagem de ', percentage)
+        x = Bagging(path, name, percentage, 100, 'Class', index)
+        x.subset()
 
-    # y = Boosting(path, name, percentage, 100, 'Class')
-    # y.subset()
+        y = Boosting(path, name, percentage, 100, 'Class', index)
+        y.subset()
 
 
 def main():
