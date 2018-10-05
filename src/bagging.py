@@ -23,6 +23,7 @@ class Bagging:
         # lê o CSV
         data_frame = pd.read_csv(self.csvPath, sep=',')
 
+
         for count in range(self.n):
             # Seleciona todos os valores 1 da coluna Class do dataframe e joga para class1, faz o mesmo para o class2
             #  mas com o 2

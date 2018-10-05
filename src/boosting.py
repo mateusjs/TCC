@@ -29,7 +29,7 @@ class Boosting:
             n = df_sub.shape[1]
             row = df_sub.shape[0]
 
-            x = df_sub.iloc[0:(row - 1), 1:n - 1]
+            x = df_sub.iloc[0:(row - 1), 0:n - 1]
             y = df_sub.iloc[0:(row - 1), n - 1]
 
             knn = KNeighborsClassifier(n_neighbors=3)
