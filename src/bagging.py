@@ -1,7 +1,7 @@
 import pandas as pd
-from src.pandas2arff import pandas2arff
-from src.dcol import Dcol
-from src.metricas import metrica
+from pandas2arff import pandas2arff
+from dcol import Dcol
+from metricas import metrica
 
 
 class Bagging:
